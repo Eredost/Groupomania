@@ -11,3 +11,5 @@ The backend part will be carried out with **Api platform** integrated into **Sym
 **Coming soon!**
 
 ## Additional docs
+
+- [Conceptual data model](docs/MCD.svg)
