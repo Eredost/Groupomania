@@ -18,7 +18,7 @@
 |id|INT(11)|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|The identifier of the post|
 |content|LONGTEXT|NOT NULL|The text message of the post|
 |image|VARCHAR(255)|NULL|The image associated with the post message|
-|owner|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|User id attached to the post|
+|owner_id|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|User id attached to the post|
 |created_at|DATETIME|NOT NULL|The creation date of the post|
 
 ## Comments (`comment`)
@@ -27,6 +27,6 @@
 |-|-|-|-|
 |id|INT(11)|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|The identifier of the comment|
 |message|LONGTEXT|NOT NULL|The text message of the comment|
-|owner|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|User id attached to the comment|
-|post|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|Post id attached to the comment|
+|owner_id|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|User id attached to the comment|
+|post_id|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|Post id attached to the comment|
 |created_at|DATETIME|NOT NULL|The creation date of the comment|
