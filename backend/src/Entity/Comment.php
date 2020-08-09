@@ -2,13 +2,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get", "delete"},
+ *     normalizationContext={"groups"={"comment:read"}},
+ *     denormalizationContext={"groups"={"comment:write"}},
+ *     attributes={
+ *         "pagination_items_per_page"=6
+ *     }
+ * )
  */
 class Comment
 {
@@ -26,6 +37,7 @@ class Comment
      * @Assert\NotBlank(
      *     message="Le message de votre commentaire ne peut pas être vide"
      * )
+     * @Groups({"comment:read", "comment:write"})
      */
     private $message;
 
@@ -39,6 +51,7 @@ class Comment
      *     type="App\Entity\User",
      *     message="Le propriétaire fourni n'est pas valide"
      * )
+     * @Groups({"comment:read"})
      */
     private $owner;
 

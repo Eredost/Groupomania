@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,6 +22,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(
  *     fields={"username"},
  *     message="Le nom d'utilisateur choisi est déjà existant"
+ * )
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get", "delete"},
+ *     normalizationContext={"groups"={"user:read"}},
+ *     denormalizationContext={"groups"={"user:write"}}
  * )
  */
 class User implements UserInterface
@@ -41,11 +49,13 @@ class User implements UserInterface
      * @Assert\Email(
      *     message="L'email fourni n'est pas valide"
      * )
+     * @Groups({"user:read", "user:write"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user:read"})
      */
     private $roles = [];
 
@@ -64,6 +74,7 @@ class User implements UserInterface
      * @Assert\NotCompromisedPassword(
      *     message="Ce mot de passe a été divulgué lors d'une fuite de données. Pour des raisons de sécurité, veuillez utiliser un autre mot de passe"
      * )
+     * @Groups({"user:write"})
      */
     private $password;
 
@@ -78,6 +89,7 @@ class User implements UserInterface
      *     minMessage="Le nom d'utilisateur doit contenir au minimum {{ limit }} charactères",
      *     maxMessage="Le nom d'utilisateur doit contenir au maximum {{ limit }} charactères"
      * )
+     * @Groups({"user:read", "user:write", "post:read", "comment:read"})
      */
     private $username;
 

@@ -2,15 +2,26 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get", "delete"},
+ *     normalizationContext={"groups"={"post:read"}},
+ *     denormalizationContext={"groups"={"post:write"}},
+ *     attributes={
+ *         "pagination_items_per_page"=8
+ *     }
+ * )
  */
 class Post
 {
@@ -28,11 +39,13 @@ class Post
      * @Assert\NotBlank(
      *     message="Le contenu du post ne peut pas être vide"
      * )
+     * @Groups({"post:read", "post:write"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"post:read", "post:write"})
      */
     private $image;
 
@@ -46,6 +59,7 @@ class Post
      *     type="App\Entity\User",
      *     message="Le propriétaire fourni n'est pas valide"
      * )
+     * @Groups({"post:read"})
      */
     private $owner;
 
