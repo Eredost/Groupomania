@@ -7,10 +7,20 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *     fields={"email"},
+ *     message="L'email a déjà été utilisé pour la création d'un compte"
+ * )
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     message="Le nom d'utilisateur choisi est déjà existant"
+ * )
  */
 class User implements UserInterface
 {
@@ -25,6 +35,12 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(
+     *     message="L'email ne peut pas être vide"
+     * )
+     * @Assert\Email(
+     *     message="L'email fourni n'est pas valide"
+     * )
      */
     private $email;
 
@@ -36,11 +52,32 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(
+     *     message="Le mot de passe ne peut pas être vide"
+     * )
+     * @Assert\Length(
+     *     min="5",
+     *     max="255",
+     *     minMessage="Le mot de passe doit contenir au minimum {{ limit }} charactères",
+     *     maxMessage="Le mot de passe doit contenir au maximum {{ limit }} charactères"
+     * )
+     * @Assert\NotCompromisedPassword(
+     *     message="Ce mot de passe a été divulgué lors d'une fuite de données. Pour des raisons de sécurité, veuillez utiliser un autre mot de passe"
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
+     * @Assert\NotBlank(
+     *     message="Le nom d'utilisateur ne peut pas être vide"
+     * )
+     * @Assert\Length(
+     *     min="3",
+     *     max="60",
+     *     minMessage="Le nom d'utilisateur doit contenir au minimum {{ limit }} charactères",
+     *     maxMessage="Le nom d'utilisateur doit contenir au maximum {{ limit }} charactères"
+     * )
      */
     private $username;
 

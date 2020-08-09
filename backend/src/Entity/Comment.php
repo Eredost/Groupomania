@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -22,18 +23,35 @@ class Comment
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *     message="Le message de votre commentaire ne peut pas être vide"
+     * )
      */
     private $message;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(
+     *     message="Le propriétaire du commentaire doit être précisé"
+     * )
+     * @Assert\Type(
+     *     type="App\Entity\User",
+     *     message="Le propriétaire fourni n'est pas valide"
+     * )
      */
     private $owner;
 
     /**
      * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(
+     *     message="Le post attaché au commentaire ne peut pas être vide"
+     * )
+     * @Assert\Type(
+     *     type="App\Entity\Post",
+     *     message="Le post fourni n'est pas valide"
+     * )
      */
     private $post;
 

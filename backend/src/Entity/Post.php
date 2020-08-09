@@ -7,6 +7,7 @@ use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -24,6 +25,9 @@ class Post
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *     message="Le contenu du post ne peut pas être vide"
+     * )
      */
     private $content;
 
@@ -35,6 +39,13 @@ class Post
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(
+     *     message="Le propriétaire du post doit être précisé"
+     * )
+     * @Assert\Type(
+     *     type="App\Entity\User",
+     *     message="Le propriétaire fourni n'est pas valide"
+     * )
      */
     private $owner;
 
