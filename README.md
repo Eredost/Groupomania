@@ -40,6 +40,10 @@ The backend part will be carried out with **Api platform** integrated into **Sym
 * You can now start the tests
 
         php bin/phpunit
+        
+### Frontend
+
+** Coming soon !**
 
 ## Additional docs
 
