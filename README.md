@@ -46,3 +46,4 @@ The backend part will be carried out with **Api platform** integrated into **Sym
 - [Conceptual data model](docs/MCD.svg)
 - [Data dictionary](docs/DD.md)
 - [Kanban (Trello)](https://trello.com/b/L4uLhIF7/groupomania)
+- [Application mockups (Figma)](https://www.figma.com/file/c14uSUrFf8NtF7beqHlp48/Groupomania)
