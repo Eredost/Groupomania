@@ -8,11 +8,11 @@
   &__label {
     display: inline-block;
     margin-bottom: 0.2em;
+    margin-top: 1em;
   }
 
   &__input {
     display: inline-block;
-    margin-bottom: 1em;
     font-size: 16px;
     padding: 0.4em 0.5em;
     border: 1px solid rgba(0, 0, 0, 0.4);
@@ -20,7 +20,7 @@
   }
 
   &__submit {
-    margin-top: 1em;
+    margin-top: 2em;
     font-size: 20px;
     color: #FFF;
     background-color: #4285F4;
@@ -34,5 +34,19 @@
       background-color: transparent;
       border: 1px solid #4285F4;
     }
+  }
+
+  &__errors {
+    text-align: center;
+    font-weight: bold;
+    padding: 1em 0.5em;
+    background-color: #ff4444;
+    color: #FFFFFF;
+    margin-bottom: 1em;
+  }
+
+  &__error {
+    font-size: 13px;
+    color: #ff4444;
   }
 }

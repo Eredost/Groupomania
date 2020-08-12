@@ -6,7 +6,7 @@ import './RegisterForm.scss';
 class RegisterForm extends Component {
     render() {
         return (
-            <form action="" noValidate>
+            <form action="" method="post" noValidate>
                 <label htmlFor="email" className="register-form__label">Email</label>
                 <input type="email" name="email" id="email" className="register-form__input"/>
 
@@ -23,7 +23,7 @@ class RegisterForm extends Component {
                     <Link to="/register"> Politique relative aux cookies</Link> de Groupomania
                 </p>
 
-                <input type="submit" value="Se connecter" className="register-form__submit"/>
+                <input type="submit" value="Accepter et s'inscrire" className="register-form__submit"/>
             </form>
         );
     }
