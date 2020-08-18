@@ -8,9 +8,7 @@ The backend part will be carried out with ~~**Api platform** integrated into **S
 
 ## Installation
 
-### Backend
-
-** Coming soon !**
+**Coming soon !**
 
 ## Additional docs
 
