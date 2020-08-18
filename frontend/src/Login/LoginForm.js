@@ -41,7 +41,7 @@ class LoginForm extends Component {
         event.preventDefault();
         if (this.handleValidation()) {
             let { fields } = this.state;
-            axios.post('https://localhost:8000/api/login',{
+            axios.post('http://localhost:3000/',{
                 email: fields.email,
                 password: fields.password
             })
@@ -49,11 +49,12 @@ class LoginForm extends Component {
                     console.log(res);
                 })
                 .catch(err => {
-                    let errors = {};
+                    console.log(err)
+                    //let errors = {};
                     //errors['g'] = err.response.data.error;
-                    this.setState({
+                    /*this.setState({
                         errors
-                    })
+                    })*/
                 })
         }
     }
