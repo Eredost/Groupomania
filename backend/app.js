@@ -4,6 +4,9 @@ const cors = require('cors');
 const { Sequelize } = require('sequelize');
 
 const app = express();
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
+const commentRoutes = require('./routes/comment');
 
 // Sequelize connecting to the database
 const sequelize = new Sequelize(process.env.DATABASE_URI);
@@ -22,12 +25,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-app.use('/', (req, res, next) => {
-    res.send(process.env.DATABASE_URI);
-})
-
-//app.use('/api/auth');
-//app.use('/api/posts');
-//app.use('/api/comments');
+app.use('/api/auth', userRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/comments', commentRoutes);
 
 module.exports = app;
