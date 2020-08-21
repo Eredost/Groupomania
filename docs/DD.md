@@ -1,6 +1,6 @@
 # Data dictionary
 
-## Users (`user`)
+## Users (`users`)
 
 |Field|Type|Specificities|Description|
 |-|-|-|-|
@@ -12,23 +12,23 @@
 |createdAt|DATETIME|NOT NULL|The creation date of the user account|
 |updatedAt|DATETIME|NOT NULL|The update date of the user account|
 
-## Posts (`post`)
+## Posts (`posts`)
 
 |Field|Type|Specificities|Description|
 |-|-|-|-|
 |id|INT(11)|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|The identifier of the post|
-|content|LONGTEXT|NOT NULL|The text message of the post|
+|content|TEXT|NOT NULL|The text message of the post|
 |image|VARCHAR(255)|NULL|The image associated with the post message|
 |ownerId|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|User id attached to the post|
 |createdAt|DATETIME|NOT NULL|The creation date of the post|
 |updatedAt|DATETIME|NOT NULL|The update date of the post|
 
-## Comments (`comment`)
+## Comments (`comments`)
 
 |Field|Type|Specificities|Description|
 |-|-|-|-|
 |id|INT(11)|PRIMARY KEY, NOT NULL, UNSIGNED, AUTO_INCREMENT|The identifier of the comment|
-|message|LONGTEXT|NOT NULL|The text message of the comment|
+|message|TEXT|NOT NULL|The text message of the comment|
 |ownerId|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|User id attached to the comment|
 |postId|INT(11)|FOREIGN KEY, NOT NULL, UNSIGNED|Post id attached to the comment|
 |createdAt|DATETIME|NOT NULL|The creation date of the comment|
