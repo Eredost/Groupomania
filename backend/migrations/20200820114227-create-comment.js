@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Comment', {
+    await queryInterface.createTable('comments', {
       id: {
         type: Sequelize.INTEGER(11).UNSIGNED,
         allowNull:     false,
@@ -16,21 +16,23 @@ module.exports = {
       ownerId: {
         type: Sequelize.INTEGER(11).UNSIGNED,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: {
-            tableName: 'user',
+            tableName: 'users',
           },
-          key: 'id'
+          key: 'id',
         }
       },
       postId: {
         type: Sequelize.INTEGER(11).UNSIGNED,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: {
-            tableName: 'post',
+            tableName: 'posts',
           },
-          key: 'id'
+          key: 'id',
         }
       },
       createdAt: {
@@ -45,6 +47,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Comment');
+    await queryInterface.dropTable('comments');
   }
 };
