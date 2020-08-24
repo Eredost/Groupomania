@@ -12,11 +12,28 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(180),
       allowNull: false,
       unique: true,
+      notEmpty: {
+        msg: 'L\'email ne peut pas être vide',
+      },
+      isEmail: {
+        msg: 'Le format de l\'email n\'est pas correct',
+      }
     },
     username: {
       type: DataTypes.STRING(60),
       allowNull: false,
       unique: true,
+      notEmpty: {
+        msg: 'Le nom d\'utilisateur ne peut pas être vide',
+      },
+      min: {
+        args: 3,
+        msg: 'Le nom d\'utilisateur doit contenir au minimum 3 caractères',
+      },
+      max: {
+        args: 60,
+        msg: 'Le nom d\'utilisateur doit contenir au maximum 60 caractères',
+      }
     },
     roles: {
       type: DataTypes.JSON,

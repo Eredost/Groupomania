@@ -24,7 +24,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     message: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
+      notEmpty: {
+        msg: 'Le contenu du commentaire ne peut pas être vide'
+      },
+      max : {
+        args: 200,
+        msg: 'Le contenu du commentaire ne peut pas dépasser 200 caractères',
+      }
     },
     ownerId: {
       type: DataTypes.INTEGER(11).UNSIGNED,
@@ -33,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     postId: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
+      isInt: true,
     }
   }, {
     sequelize,

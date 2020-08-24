@@ -21,6 +21,13 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
+      notEmpty: {
+        msg: 'Le contenu du post ne peut pas être vide',
+      },
+      max: {
+        args: 2000,
+        msg: 'Le contenu du post ne doit pas dépasser 2000 caractères',
+      }
     },
     image: {
       type: DataTypes.STRING,
