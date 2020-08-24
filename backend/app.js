@@ -7,9 +7,11 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 const db = require('./models');
+
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
 const commentRoutes = require('./routes/comment');
+const userRoutes = require('./routes/user');
 
 // Setup various HTTP headers
 app.use(helmet());
@@ -41,6 +43,7 @@ db.sequelize
 app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 
