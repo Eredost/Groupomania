@@ -25,12 +25,18 @@ module.exports = (sequelize, DataTypes) => {
     message: {
       type: DataTypes.TEXT,
       allowNull: false,
-      notEmpty: {
-        msg: 'Le contenu du commentaire ne peut pas être vide'
-      },
-      max : {
-        args: 200,
-        msg: 'Le contenu du commentaire ne peut pas dépasser 200 caractères',
+      validate: {
+        notNull: {
+          msg: 'Le contenu du commentaire ne peut pas être vide',
+        },
+        notEmpty: {
+          msg: 'Le contenu du commentaire ne peut pas être vide',
+        },
+        isValidLength(message) {
+          if (message.length > 200) {
+            throw new Error('Le ncontenu du commentaire ne peut pas dépasser 200 caractères');
+          }
+        },
       }
     },
     ownerId: {
@@ -40,7 +46,21 @@ module.exports = (sequelize, DataTypes) => {
     postId: {
       type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
-      isInt: true,
+      validate: {
+        notNull: {
+          msg: 'Le postId ne peut pas être vide',
+        },
+        notEmpty: {
+          msg: 'Le postId ne peut pas être vide',
+        },
+        isInt: true,
+        async isPost(value) {
+          const post = await Post.findOne({ where: { id: value } })
+            if (!post) {
+              throw new Error('Valeur invalide pour le postId');
+            }
+        }
+      }
     }
   }, {
     sequelize,
