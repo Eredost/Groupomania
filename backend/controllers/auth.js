@@ -7,7 +7,7 @@ const db = require('../models');
 exports.signup = (req, res, next) => {
     // Checks if the password is 8 characters long and contains a lowercase, an uppercase, a number and a special character
     if (!/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/.test(req.body.password)) {
-        return res.status(400).json({ error: 'Le mot de passe doit contenir minimum 8 caractère avec au minimum un caractères minuscule et majuscule, un chiffre et un caractère spécial (!@#$%^&*)' })
+        return res.status(400).json({ error: 'Le mot de passe doit contenir minimum 8 caractères avec au minimum un caractères minuscule et majuscule, un chiffre et un caractère spécial (!@#$%^&*)' })
     }
 
     // Hash the user's password
@@ -22,7 +22,10 @@ exports.signup = (req, res, next) => {
                 .then(user => {
                     res.status(201).json({
                         token: jwt.sign(
-                            { userId: user.id },
+                            {
+                                userId: user.id,
+                                roles: user.roles,
+                            },
                             process.env.JWT_SECRET_TOKEN,
                             { expiresIn: '24h' }
                         ),
@@ -50,7 +53,10 @@ exports.login = (req, res, next) => {
 
                     res.status(200).json({
                         token: jwt.sign(
-                            { userId: user.id },
+                            {
+                                userId: user.id,
+                                roles: user.roles,
+                            },
                             process.env.JWT_SECRET_TOKEN,
                             { expiresIn: '24h' }
                         ),
@@ -60,3 +66,16 @@ exports.login = (req, res, next) => {
         })
         .catch(error => res.status(400).json({ error }))
 };
+
+exports.getCurrentUser = (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
+
+    db.User.findOne({ where: { id: decodedToken.userId } })
+        .then(user => {
+            return res.status(200).json({
+                email: user.email,
+            });
+        })
+        .catch(error => res.status(500).json({ error }))
+}
