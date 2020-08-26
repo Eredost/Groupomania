@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         isValidLength(message) {
           if (message.length > 200) {
-            throw new Error('Le ncontenu du commentaire ne peut pas dépasser 200 caractères');
+            throw new Error('Le contenu du commentaire ne peut pas dépasser 200 caractères');
           }
         },
       }
@@ -53,13 +53,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: 'Le postId ne peut pas être vide',
         },
-        isInt: true,
-        async isPost(value) {
-          const post = await Post.findOne({ where: { id: value } })
-            if (!post) {
-              throw new Error('Valeur invalide pour le postId');
-            }
-        }
+        isInt: true
       }
     }
   }, {

@@ -5,6 +5,8 @@ const postCtrl = require('../controllers/post');
 const auth = require('../middlewares/auth');
 const multer = require('../middlewares/multer-config');
 
+router.get('/:id/comments', auth, postCtrl.getAllComments);
+router.post('/:id/comments', auth, postCtrl.createComment)
 router.delete('/:id', auth, postCtrl.deletePost)
 router.get('/', auth, postCtrl.getAllPosts);
 router.post('/', auth, multer, postCtrl.createPost);

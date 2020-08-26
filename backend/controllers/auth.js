@@ -74,7 +74,8 @@ exports.getCurrentUser = (req, res, next) => {
     db.User.findOne({ where: { id: decodedToken.userId } })
         .then(user => {
             return res.status(200).json({
-                email: user.email,
+                username: user.username,
+                roles: user.roles
             });
         })
         .catch(error => res.status(500).json({ error }))
