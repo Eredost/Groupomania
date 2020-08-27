@@ -10,7 +10,7 @@ class LoginForm extends Component {
             email: '',
             password: ''
         },
-        errors: {}
+        errors: {},
     }
 
     handleValidation() {
@@ -20,17 +20,18 @@ class LoginForm extends Component {
 
         // Email validation
         if (!fields['email']) {
-            formIsValid = false;
             errors['email'] = 'L\'email ne peut pas être vide';
         } else if (!fields['email'].match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)) {
-            formIsValid = false;
             errors['email'] = 'L\'email n\'est pas valide';
         }
 
         // Password validation
         if (!fields['password']) {
-            formIsValid = false;
             errors['password'] = 'Le mot de passe ne peut pas être vide';
+        }
+
+        if (Object.keys(errors).length !== 0) {
+            formIsValid = false;
         }
         this.setState({ errors })
 
@@ -41,20 +42,20 @@ class LoginForm extends Component {
         event.preventDefault();
         if (this.handleValidation()) {
             let { fields } = this.state;
-            axios.post('http://localhost:3000/',{
+            axios.post('http://localhost:3000/api/auth/login',{
                 email: fields.email,
                 password: fields.password
             })
                 .then(res => {
-                    console.log(res);
+                    const date = new Date();
+                    date.setTime(date.getTime() + (24*60*60*1000));
+                    document.cookie = 'token=' + res.data.token + '; expires=' + date.toUTCString() + '; path=/; SameSite=Strict';
+                    window.location.href = "/";
                 })
                 .catch(err => {
-                    console.log(err)
-                    //let errors = {};
-                    //errors['g'] = err.response.data.error;
-                    /*this.setState({
-                        errors
-                    })*/
+                    let errors = {};
+                    errors['g'] = err.response.data.error;
+                    this.setState({ errors })
                 })
         }
     }
