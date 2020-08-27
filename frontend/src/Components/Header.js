@@ -37,7 +37,7 @@ function Header() {
                         <Link to='/'>Accueil</Link>
                     </li>
                     <li>
-                        <Link to='/'>Profil</Link>
+                        <Link to='/logout'>Déconnexion</Link>
                     </li>
                 </ul>
             )}

@@ -9,6 +9,7 @@ import {
 import Login from './Login/Login';
 import Register from "./Register/Register";
 import Home from "./Home/Home";
+import Logout from "./Logout/Logout";
 
 class App extends React.Component {
 
@@ -30,6 +31,9 @@ class App extends React.Component {
                     </Route>
                     <Route exact path="/register">
                         { isAuthenticated ? <Redirect to="/" /> : <Register /> }
+                    </Route>
+                    <Route exact path="/logout">
+                        <Logout />
                     </Route>
                     <Route path="/">
                         { isAuthenticated ? <Home /> : <Redirect to="/login" /> }
