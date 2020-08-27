@@ -33,7 +33,7 @@ class App extends React.Component {
                         { isAuthenticated ? <Redirect to="/" /> : <Register /> }
                     </Route>
                     <Route exact path="/logout">
-                        <Logout />
+                        { isAuthenticated ? <Logout /> : <Redirect to="/login" />  }
                     </Route>
                     <Route path="/">
                         { isAuthenticated ? <Home /> : <Redirect to="/login" /> }

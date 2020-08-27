@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 
 import './Home.scss';
-import Header from "../Components/Header";
+import Header from '../Components/Header';
+import AsideNav from './AsideNav';
+import Profile from './Profile';
+import Post from './Post';
 
 class Home extends Component {
 
@@ -9,7 +12,11 @@ class Home extends Component {
         return (
             <div className="page-wrapper">
                 <Header/>
-                Home
+                <div className="home-main">
+                    <AsideNav/>
+                    <Profile/>
+                    <Post/>
+                </div>
             </div>
         );
     }
