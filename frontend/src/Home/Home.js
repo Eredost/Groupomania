@@ -4,7 +4,7 @@ import './Home.scss';
 import Header from '../Components/Header';
 import AsideNav from './AsideNav';
 import Profile from './Profile';
-import Post from './Post';
+import Posts from './Posts';
 
 class Home extends Component {
 
@@ -15,7 +15,7 @@ class Home extends Component {
                 <div className="home-main">
                     <AsideNav/>
                     <Profile/>
-                    <Post/>
+                    <Posts/>
                 </div>
             </div>
         );
