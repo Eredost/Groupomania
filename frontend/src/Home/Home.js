@@ -31,7 +31,8 @@ class Home extends Component {
                 this.setState({ user: res.data });
             })
             .catch(() => {
-                window.location.href = '/logout';
+                // Todo
+                //window.location.href = '/logout';
             })
     }
 
@@ -44,7 +45,7 @@ class Home extends Component {
                 <div className="home-main">
                     <AsideNav/>
                     <Profile user={user} />
-                    <Posts/>
+                    <Posts user={user} />
                 </div>
             </div>
         );

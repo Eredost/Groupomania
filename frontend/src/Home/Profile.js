@@ -21,7 +21,8 @@ class Profile extends Component {
                     window.location.href = '/logout';
                 })
                 .catch(() => {
-                    window.location.href = '/logout';
+                    // TODO
+                    //window.location.href = '/logout';
                 })
         }
     }
@@ -31,7 +32,7 @@ class Profile extends Component {
             <div className="profile__wrapper">
                 <div className="profile">
                     <div className="profile__header">
-                        <img src={profilePic} alt="profile picture" className="profile__picture"/>
+                        <img src={profilePic} alt={this.props.user.username} className="profile__picture"/>
                         <div>
                             <p className="profile__fullname">{this.props.user.username}</p>
                         </div>
@@ -39,7 +40,7 @@ class Profile extends Component {
                     <p className="profile__description">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur arcu enim. Donec erat metus, luctus at leo non, porttitor ultricies orci. Integer sagittis interdum mattis. Proin venenatis condimentum maximus. Sed rutrum dolor vel ipsum commodo rhoncus.
                     </p>
-                    <a href="#" className="profile__delete" onClick={this.handleDelete}>Supprimer mon compte</a>
+                    <button href="#" className="profile__delete" onClick={this.handleDelete}>Supprimer mon compte</button>
                 </div>
             </div>
         )

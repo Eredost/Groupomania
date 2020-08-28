@@ -34,7 +34,7 @@ function Header() {
             ) : (
                 <ul className="header__nav">
                     <li>
-                        <Link to='/'>Accueil</Link>
+                        <Link to='/' className="active">Accueil</Link>
                     </li>
                     <li>
                         <Link to='/logout'>Déconnexion</Link>

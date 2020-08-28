@@ -1,41 +1,53 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-import './Post.scss';
 import './Posts.scss';
-import placeholder from './placeholder.jpg';
-import profilePic from "./matthew.png";
+import Post from './Post';
 
 class Posts extends Component {
+
+    state = {
+        posts: []
+    }
+
+    componentDidMount() {
+        this.getPosts();
+    }
+
+    getPosts() {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; token=`);
+        const token = parts.pop().split(';').shift();
+
+        axios.get('http://localhost:3000/api/posts?sort=createdAt&order=desc&include=user', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(res => {
+                this.setState({ posts: res.data });
+            })
+            .catch(() => {
+                // TODO
+               //window.location.href = '/logout';
+            })
+    }
+
+    deletePost(postId) {
+        let { posts } = this.state;
+        posts = posts.filter(post => post.id !== postId);
+        this.setState({ posts });
+    }
+
     render() {
+        let { posts } = this.state;
+
         return (
             <div className="posts">
-                <div className="post">
-                    <div className="post__header">
-                        <img src={profilePic} alt="profile picture" className="post__profile-picture"/>
-                        <div>
-                            <p className="post__fullname">Mathieu Nebra</p>
-                            <time className="post__creation-date">Il y a 10 minutes</time>
-                        </div>
-                    </div>
-                    <img src={placeholder} alt="post picture" className="post__picture"/>
-                    <p className="post__description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur arcu enim. Donec erat metus, luctus at leo non, porttitor ultricies orci. Integer sagittis interdum mattis. Proin venenatis condimentum maximus. Sed rutrum dolor vel ipsum commodo rhoncus.
-                    </p>
-                </div>
-                <div className="post">
-                    <div className="post__header">
-                        <img src={profilePic} alt="profile picture" className="post__profile-picture"/>
-                        <div>
-                            <p className="post__fullname">Mathieu Nebra</p>
-                            <time className="post__creation-date">Il y a 10 minutes</time>
-                        </div>
-                    </div>
-                    <p className="post__description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur arcu enim. Donec erat metus, luctus at leo non, porttitor ultricies orci. Integer sagittis interdum mattis. Proin venenatis condimentum maximus. Sed rutrum dolor vel ipsum commodo rhoncus.
-                    </p>
-                </div>
+                { posts ? (posts.map(post => {
+                    return <Post key={post.id} post={post} user={this.props.user} deletePost={this.deletePost.bind(this)}/>
+                })) : '' }
             </div>
-
         )
     }
 }

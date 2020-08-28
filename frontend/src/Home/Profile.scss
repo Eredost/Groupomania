@@ -32,6 +32,13 @@
   &__delete {
     color: #ff4444;
     float: right;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   @media all and (min-width: 920px) {
