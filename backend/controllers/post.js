@@ -15,12 +15,12 @@ exports.getAllPosts = (req, res, next) => {
 }
 
 exports.createPost = (req, res, next) => {
-    const postObject = JSON.parse(req.body.post);
     db.Post.create({
-        ...postObject,
-        image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        content: req.body.content,
+        ownerId: res.locals.userId,
+        image: ( req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null )
     })
-        .then(() => res.status(200).json({ message: 'Post ajouté !' }))
+        .then(post => res.status(201).json({ post }))
         .catch(error => res.status(400).json({ error }))
 }
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import './Posts.scss';
 import Post from './Post';
+import NewPostForm from './NewPostForm';
 
 class Posts extends Component {
 
@@ -39,11 +40,19 @@ class Posts extends Component {
         this.setState({ posts });
     }
 
+    addPost(post) {
+        let { posts } = this.state;
+        posts = [post, ...posts];
+        this.setState({ posts });
+    }
+
     render() {
         let { posts } = this.state;
 
         return (
             <div className="posts">
+                <NewPostForm addPost={this.addPost.bind(this)} user={this.props.user}/>
+
                 { posts ? (posts.map(post => {
                     return <Post key={post.id} post={post} user={this.props.user} deletePost={this.deletePost.bind(this)}/>
                 })) : '' }

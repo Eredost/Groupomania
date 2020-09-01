@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
         if (req.body.userId && parseInt(req.body.userId, 10) !== userId) {
             throw 'Identifiant utilisateur invalide';
         } else {
+            res.locals.userId = userId;
             next();
         }
     } catch (error) {

@@ -37,7 +37,7 @@ class Post extends Component {
                 </div>
                 { this.props.post.image ? <img src={this.props.post.image} alt="" className="post__picture"/> : '' }
                 <p className="post__description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur arcu enim. Donec erat metus, luctus at leo non, porttitor ultricies orci. Integer sagittis interdum mattis. Proin venenatis condimentum maximus. Sed rutrum dolor vel ipsum commodo rhoncus.
+                    {this.props.post.content}
                 </p>
                 { this.props.user.roles && this.props.user.roles.includes('ROLE_MODERATOR') ?
                     <button href="#" onClick={this.handlePostDelete} className="post__delete">Supprimer ce post</button> : ''
