@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const path = require('path');
 
 const app = express();
@@ -16,13 +15,6 @@ const userRoutes = require('./routes/user');
 
 // Setup various HTTP headers
 app.use(helmet());
-
-// Limit number of requests per 15 minutes
-const limiter = rateLimit({
-    windowMs: 1000,
-    max: 6
-});
-app.use(limiter);
 
 // Configuring CORS Headers
 const corsOptions = {
