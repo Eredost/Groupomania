@@ -1,10 +1,45 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Comment from './Comment';
+import NewCommentForm from './NewCommentForm';
 import './Post.scss';
 import profilePic from "./matthew.png";
 
 class Post extends Component {
+
+    state = {
+        comments: []
+    }
+
+    componentDidMount() {
+        this.getAllComments();
+    }
+
+    getAllComments() {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; token=`);
+        const token = parts.pop().split(';').shift();
+
+        axios.get('http://localhost:3000/api/posts/'+this.props.post.id+'/comments', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(res => {
+                this.setState({ comments: res.data });
+            })
+            .catch(err => {
+                // TODO
+                console.log(err);
+            })
+    }
+
+    addComment(comment) {
+        let { comments } = this.state;
+        comments.push(comment);
+        this.setState({ comments });
+    }
 
     handlePostDelete = (event) => {
         const value = `; ${document.cookie}`;
@@ -26,6 +61,8 @@ class Post extends Component {
     }
 
     render() {
+        let { comments } = this.state;
+
         return (
             <div className="post">
                 <div className="post__header">
@@ -42,6 +79,18 @@ class Post extends Component {
                 { this.props.user.roles && this.props.user.roles.includes('ROLE_MODERATOR') ?
                     <button href="#" onClick={this.handlePostDelete} className="post__delete">Supprimer ce post</button> : ''
                 }
+
+                <div className="post__comments">
+                    <p className="post__comments-counter">
+                        <span>{comments.length}</span> commentaire(s)
+                    </p>
+
+                    <NewCommentForm postId={this.props.post.id} user={this.props.user} addComment={this.addComment.bind(this)}/>
+
+                    { comments ? (comments.map(comment => {
+                        return <Comment key={comment.id} comment={comment}/>
+                    })) : '' }
+                </div>
             </div>
         )
     }

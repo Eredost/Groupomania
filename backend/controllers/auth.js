@@ -68,10 +68,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.getCurrentUser = (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
-
-    db.User.findOne({ where: { id: decodedToken.userId } })
+    db.User.findOne({ where: { id: res.locals.userId } })
         .then(user => {
             return res.status(200).json({
                 username: user.username,

@@ -58,6 +58,16 @@
     }
   }
 
+  &__comments {
+    padding: 0 0.5em;
+  }
+
+  &__comments-counter {
+    margin: 0;
+    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
   @media all and (min-width: 920px) {
     max-width: 580px;
   }

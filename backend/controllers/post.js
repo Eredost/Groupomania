@@ -43,33 +43,13 @@ exports.deletePost = (req, res, next) => {
         .catch(error => res.status(404).json({ error }))
 }
 
-exports.createComment = (req, res, next) => {
-    const commentObject = req.body.comment;
-    // Searches for the post according to the identifier parameter given in the url
-    db.Post.findOne({ where: { id: req.params.id } })
-        .then(post => {
-            // Valid if the post is indeed existing
-            if (!post) {
-                return res.status(404).json({ error: 'Post introuvable !' })
-            }
-
-            db.Comment.create({
-                ...commentObject,
-                ownerId: req.body.userId,
-                postId: req.params.id
-            })
-                .then(() => res.status(201).json({ message: 'Commentaire ajouté !' }))
-                .catch(error => res.status(400).json({ error }))
-        })
-        .catch(error => res.status(400).json({ error }))
-}
-
 exports.getAllComments = (req, res, next) => {
     db.Comment.findAll({
         where: { postId: req.params.id },
         order: [
             [req.query.sort ?? 'id', req.query.order ?? 'ASC']
-        ]
+        ],
+        include: (req.query.include === 'user' ? [{ model: db.User, attributes: ['username'] }] : '')
     })
         .then(comments => res.status(200).json(comments))
         .catch(error => res.status(500).json({ error }))

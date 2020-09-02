@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const db = require('../models');
 
 exports.deleteCurrentUser = (req, res, next) => {
