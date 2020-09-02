@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
 const db = require('../models');
@@ -27,9 +26,7 @@ exports.createPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     db.Post.findOne({ where: { id: req.params.id } })
         .then(post => {
-            const decodedToken = jwt.decode(req.headers.authorization.split(' ')[1], process.env.JWT_SECRET_TOKEN);
-            const roles = decodedToken.roles;
-            if (roles.includes('ROLE_MODERATOR')) {
+            if (res.locals.userRoles.includes('ROLE_MODERATOR')) {
                 if (post.image) {
                     const filename = post.image.split('/images/')[1];
                     fs.unlink(`images/${filename}`, (err) => {
