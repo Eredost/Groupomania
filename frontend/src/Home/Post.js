@@ -21,7 +21,7 @@ class Post extends Component {
         const parts = value.split(`; token=`);
         const token = parts.pop().split(';').shift();
 
-        axios.get('http://localhost:3000/api/posts/'+this.props.post.id+'/comments', {
+        axios.get('http://localhost:3000/api/posts/'+this.props.post.id+'/comments?sort=createdAt&order=asc&include=user', {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
@@ -60,6 +60,12 @@ class Post extends Component {
             })
     }
 
+    deleteComment(commentId) {
+        let { comments } = this.state;
+        comments = comments.filter(comment => comment.id !== commentId);
+        this.setState({ comments });
+    }
+
     render() {
         let { comments } = this.state;
 
@@ -88,7 +94,7 @@ class Post extends Component {
                     <NewCommentForm postId={this.props.post.id} user={this.props.user} addComment={this.addComment.bind(this)}/>
 
                     { comments ? (comments.map(comment => {
-                        return <Comment key={comment.id} comment={comment}/>
+                        return <Comment key={comment.id} comment={comment} user={this.props.user} deleteComment={this.deleteComment.bind(this)}/>
                     })) : '' }
                 </div>
             </div>
