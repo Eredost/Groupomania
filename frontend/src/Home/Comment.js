@@ -20,8 +20,8 @@ class Comment extends Component {
                     this.props.deleteComment(this.props.comment.id);
                 })
                 .catch(err => {
-                    // TODO
                     console.log(err);
+                    window.alert('Une erreur est survenue, veuillez réessayer plus tard. Si le problème persiste, contactez l\'administrateur du site');
                 })
         }
     }

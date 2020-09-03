@@ -31,8 +31,7 @@ class Home extends Component {
                 this.setState({ user: res.data });
             })
             .catch(() => {
-                // Todo
-                //window.location.href = '/logout';
+                window.location.href = '/logout';
             })
     }
 

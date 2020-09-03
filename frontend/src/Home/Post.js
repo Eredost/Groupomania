@@ -30,8 +30,8 @@ class Post extends Component {
                 this.setState({ comments: res.data });
             })
             .catch(err => {
-                // TODO
                 console.log(err);
+                window.alert('Une erreur est survenue, veuillez réessayer plus tard. Si le problème persiste, contactez l\'administrateur du site');
             })
     }
 
@@ -42,22 +42,24 @@ class Post extends Component {
     }
 
     handlePostDelete = (event) => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; token=`);
-        const token = parts.pop().split(';').shift();
+        if (window.confirm('Voulez vous vraiment supprimer ce post ?')) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; token=`);
+            const token = parts.pop().split(';').shift();
 
-        axios.delete('http://localhost:3000/api/posts/' + this.props.post.id, {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        })
-            .then(() => {
-                this.props.deletePost(this.props.post.id);
+            axios.delete('http://localhost:3000/api/posts/' + this.props.post.id, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
             })
-            .catch((err) => {
-                // TODO
-                console.log(err);
-            })
+                .then(() => {
+                    this.props.deletePost(this.props.post.id);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    window.alert('Une erreur est survenue, veuillez réessayer plus tard. Si le problème persiste, contactez l\'administrateur du site');
+                })
+        }
     }
 
     deleteComment(commentId) {

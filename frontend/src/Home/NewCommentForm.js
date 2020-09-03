@@ -58,8 +58,10 @@ class NewCommentForm extends Component {
                     this.setState({ fields: { message: '' } });
                 })
                 .catch(err => {
-                    // TODO
                     console.log(err);
+                    let errors = {};
+                    errors['g'] = err.response.data.error;
+                    this.setState({ errors })
                 })
         }
     }

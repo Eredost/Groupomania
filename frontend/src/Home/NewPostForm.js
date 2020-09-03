@@ -75,6 +75,9 @@ class NewPostForm extends Component {
                 })
                 .catch(err => {
                     console.log(err);
+                    let errors = {};
+                    errors['g'] = err.response.data.error;
+                    this.setState({ errors })
                 })
         }
     }

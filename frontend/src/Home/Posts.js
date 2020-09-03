@@ -28,9 +28,9 @@ class Posts extends Component {
             .then(res => {
                 this.setState({ posts: res.data });
             })
-            .catch(() => {
-                // TODO
-               //window.location.href = '/logout';
+            .catch(err => {
+                console.log(err);
+                window.alert('Une erreur est survenue, veuillez réessayer plus tard. Si le problème persiste, contactez l\'administrateur du site');
             })
     }
 
