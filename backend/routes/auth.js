@@ -5,11 +5,18 @@ const rateLimit = require('express-rate-limit');
 const authCtrl = require('../controllers/auth');
 const auth = require('../middlewares/auth');
 
-// Limit number of requests per 1 hour
+// Limit number of requests per 1 minute
 const limiter = rateLimit({
-    windowMs: 60 * 60 * 1000,
+    windowMs: 60 * 1000,
     max: 3,
-    message: 'Trop de requêtes ont été effectuées, veuillez réessayer dans une heure'
+    message: {
+        error: {
+            errors: [{
+                path: 'g',
+                message: 'Trop de tentatives ont été effectuées, veuillez réessayer dans quelques minutes',
+            }]
+        }
+    }
 });
 
 router.post('/signup', limiter, authCtrl.signup);

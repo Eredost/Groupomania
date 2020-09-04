@@ -54,8 +54,14 @@ class LoginForm extends Component {
                 })
                 .catch(err => {
                     let errors = {};
-                    errors['g'] = err.response.data.error;
-                    this.setState({ errors })
+                    if (err.response.data.error.errors) {
+                        for (let error of err.response.data.error.errors) {
+                            errors[error.path] = error.message;
+                        }
+                    } else if (err.response.data.error) {
+                        errors['g'] = err.response.data.error;
+                    }
+                    this.setState({ errors });
                 })
         }
     }
