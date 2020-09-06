@@ -27,16 +27,16 @@
     margin-top: 2em;
     font-size: 20px;
     color: #FFF;
-    background-color: #4285F4;
+    background-color: #3F729B;
     border: 1px solid transparent;
     transition: .3s;
     cursor: pointer;
     padding: 0.3em 0;
 
     &:hover {
-      color: #4285F4;
+      color: #3F729B;
       background-color: transparent;
-      border: 1px solid #4285F4;
+      border: 1px solid #3F729B;
     }
   }
 
@@ -44,13 +44,13 @@
     text-align: center;
     font-weight: bold;
     padding: 1em 0.5em;
-    background-color: #ff4444;
+    background-color: #CC0000;
     color: #FFFFFF;
     margin-bottom: 1em;
   }
 
   &__error {
     font-size: 13px;
-    color: #ff4444;
+    color: #CC0000;
   }
 }
