@@ -74,7 +74,7 @@ class Post extends Component {
         return (
             <div className="post">
                 <div className="post__header">
-                    <img src={profilePic} alt={this.props.post.User.username} className="post__profile-picture"/>
+                    <img src={profilePic} alt="" className="post__profile-picture"/>
                     <div>
                         <p className="post__fullname">{this.props.post.User.username}</p>
                         <time className="post__creation-date" dateTime={new Date(this.props.post.createdAt).toISOString()}>{new Date(this.props.post.createdAt).toLocaleDateString()}</time>

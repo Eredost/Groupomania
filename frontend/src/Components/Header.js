@@ -12,9 +12,9 @@ function Header() {
 
     return (
         <header className="header">
-            <div className="header__logo">
+            <h1 className="header__logo">
                 <img src={groupomoniaLogo} height="30px" width="auto" alt="Groupomania logo"/>
-            </div>
+            </h1>
 
             { pathname === '/register' || pathname === '/login' ? (
                 <ul className="header__nav">

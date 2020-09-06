@@ -32,7 +32,7 @@ class Profile extends Component {
             <div className="profile__wrapper">
                 <div className="profile">
                     <div className="profile__header">
-                        <img src={profilePic} alt={this.props.user.username} className="profile__picture"/>
+                        <img src={profilePic} alt="" className="profile__picture"/>
                         <div>
                             <p className="profile__fullname">{this.props.user.username}</p>
                         </div>

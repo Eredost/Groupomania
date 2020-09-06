@@ -83,8 +83,8 @@ class NewCommentForm extends Component {
                 <h2 className="newcomment-form__title">Ecrire un commentaire</h2>
 
                 <div className="newcomment-form__input-group">
-                    <label htmlFor="message" className="newcomment-form__label">Votre commentaire : <span className="required">*</span></label>
-                    <textarea name="message" id="message" cols="30" rows="10" onChange={this.handleChange} value={this.state.fields['message']} className="newcomment-form__textarea"/>
+                    <label htmlFor={'message'+this.props.postId} className="newcomment-form__label">Votre commentaire : <span className="required">*</span></label>
+                    <textarea name="message" id={'message'+this.props.postId} cols="30" rows="10" onChange={this.handleChange} value={this.state.fields['message']} className="newcomment-form__textarea"/>
                     {errors['message'] ? (
                         <span className="newcomment-form__error">{errors['message']}</span>
                     ) : '' }
